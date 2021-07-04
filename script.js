@@ -23,32 +23,35 @@ function addBookToLibraryLite(book) {
 }
 
 function displayBooks(library) {
-    library.forEach((book, index)=> {
+    while(libraryContainer.firstChild) {
+        libraryContainer.removeChild(libraryContainer.lastChild);
+    }
+    library.forEach((book)=> {
         let bookElem = document.createElement('div');
         bookElem.classList.add('book');
      
         let bookTitle = document.createElement('span');
-        bookTitle.textContent = library[index].title;
+        bookTitle.textContent = book.title;
         bookTitle.classList.add('bookTitle');
         bookElem.appendChild(bookTitle);
      
         let bookAuthor = document.createElement('span');
-        bookAuthor.textContent = "By: " + library[index].author;
+        bookAuthor.textContent = "By: " + book.author;
         bookTitle.classList.add('bookAuthor');
         bookElem.appendChild(bookAuthor);
      
         let bookPages = document.createElement('span');
-         bookPages.textContent = "Pages: " + library[index].pages;
-         bookTitle.classList.add('bookPages');
+        bookPages.textContent = "Pages: " + book.pages;
+        bookTitle.classList.add('bookPages');
         bookElem.appendChild(bookPages);
      
         let bookDate = document.createElement('span');
-        bookDate.textContent = "Published: " + library[index].date;
+        bookDate.textContent = "Published: " + book.date;
         bookTitle.classList.add('bookDate');
         bookElem.appendChild(bookDate);
      
         let bookRating = document.createElement('span');
-        bookRating.textContent = "Rating: " + library[index].rating;
+        bookRating.textContent = "Rating: " + book.rating;
         bookTitle.classList.add('bookRating');
         bookElem.appendChild(bookRating);
 
@@ -56,7 +59,19 @@ function displayBooks(library) {
     });
 }
 
+
 function renderNewBookForm() {
+    //Making Blur Background
+    let blurBackground = document.createElement('div');
+    blurBackground.id = "blurBackground";
+    document.body.appendChild(blurBackground);
+
+    //Darken the blur
+    let blackBackground = document.createElement('div');
+    blackBackground.id = "blackBackground";
+    document.body.appendChild(blackBackground);
+
+    //Form here
     let formContainer = document.createElement('div');
     formContainer.id = "formContainer";
     document.body.appendChild(formContainer);
@@ -65,12 +80,48 @@ function renderNewBookForm() {
     formTitle.id = "formTitle";
     formTitle.textContent = "Add New Book";
     formContainer.appendChild(formTitle);
+    //Form items
     formContainer.appendChild(createFormItem("Book Title*", "Title"));
     formContainer.appendChild(createFormItem("Book Author*", "Author"));
     formContainer.appendChild(createFormItem("Number of Pages*", "Pages"));
     formContainer.appendChild(createFormItem("Date Published*", "Year"));
-    formContainer.appendChild(createFormItem("Rating*", "1 - 5"));
     formContainer.appendChild(createDropdownFormItem("Read Status*", "Have you read this book?"));
+    formContainer.appendChild(createFormItem("Rating*", "1 - 5"));
+   
+
+    const formItemInputs = document.querySelectorAll('.formItemInput');
+
+    console.log(formItemInputs);
+
+    let buttonContainer = document.createElement('div');
+    buttonContainer.id = "buttonContainer";
+    formContainer.appendChild(buttonContainer);
+
+    let addButton = document.createElement('button');
+    addButton.textContent = "Add Book";
+    addButton.addEventListener('click', ()=> {
+        console.log(formItemInputs[0]);
+        let book = new Book(formItemInputs[0].value, formItemInputs[1].value, formItemInputs[2].value, formItemInputs[3].value,formItemInputs[4].value);
+        addBookToLibraryLite(book);
+        displayBooks(myLibrary);
+
+        //Delete form 
+        formContainer.remove();
+    });
+    buttonContainer.appendChild(addButton);
+
+
+    let clearFieldsButton = document.createElement('button');
+    clearFieldsButton.textContent = "Clear Fields";
+    clearFieldsButton.addEventListener('click', ()=> {
+        formItemInputs.forEach((item)=> {
+            item.value = '';
+        });
+    });
+    buttonContainer.appendChild(clearFieldsButton);
+    
+    
+
     
 
 }
