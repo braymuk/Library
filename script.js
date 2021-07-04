@@ -26,9 +26,20 @@ function displayBooks(library) {
     while(libraryContainer.firstChild) {
         libraryContainer.removeChild(libraryContainer.lastChild);
     }
-    library.forEach((book)=> {
+    library.forEach((book, index)=> {
         let bookElem = document.createElement('div');
+        bookElem.dataset.id = index;
         bookElem.classList.add('book');
+
+        let bookDeleteButton = document.createElement('div');
+        bookDeleteButton.id = "bookDeleteButton";
+        bookDeleteButton.classList.add('exitButton');
+        bookDeleteButton.addEventListener('click', ()=> {
+            let bookId = bookElem.dataset.id;
+            myLibrary.splice(bookId, 1);
+            bookElem.remove();
+        });
+        bookElem.appendChild(bookDeleteButton);
      
         let bookTitle = document.createElement('span');
         bookTitle.textContent = book.title;
@@ -66,6 +77,11 @@ function removeForm() {
 }
 
 
+function removeBook() {
+
+}
+
+
 function renderNewBookForm() {
     //Making Blur Background
     let blurBackground = document.createElement('div');
@@ -83,7 +99,7 @@ function renderNewBookForm() {
     document.body.appendChild(formContainer);
 
     let formExitButton = document.createElement('div');
-    formExitButton.id = "formExitButton";
+    formExitButton.classList.add('exitButton');
     formExitButton.addEventListener('click', ()=> {
         removeForm();
     });
@@ -205,12 +221,14 @@ addBookButton.addEventListener('click',(e)=> {
 
 
 const book1 = new Book("Star Wars", "George Lucas", "123", "1996", false, 3);
+const book2 = new Book("Letters from a Stoic", "Seneca", "156", "1200", false, 3);
+const book3 = new Book("Meditations", "Marcus Aurelius", "120", "1240", false, 3);
 
 
 
 addBookToLibraryLite(book1);
-addBookToLibraryLite(book1);
-addBookToLibraryLite(book1);
+addBookToLibraryLite(book2);
+addBookToLibraryLite(book3);
 
 displayBooks(myLibrary);
 

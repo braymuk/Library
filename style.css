@@ -130,7 +130,7 @@ span {
     align-items: center;
 }
 
-#formExitButton {
+.exitButton {
     position: absolute;
     right: 18px;
     top: 15px;
@@ -138,10 +138,10 @@ span {
     height: 32px;
     opacity: 0.3;
   }
-  #formExitButton:hover {
+  .exitButton:hover {
     opacity: 1;
   }
-  #formExitButton:before, #formExitButton:after {
+  .exitButton:before, .exitButton:after {
     position: absolute;
     left: 15px;
     content: ' ';
@@ -149,10 +149,37 @@ span {
     width: 2px;
     background-color: white;
   }
-  #formExitButton:before {
+  .exitButton:before {
     transform: rotate(45deg);
   }
-  #formExitButton:after {
+  .exitButton:after {
+    transform: rotate(-45deg);
+  }
+
+  #bookDeleteButton {
+    position: relative;
+    right:-180px;
+    top:-10px;
+    margin-bottom: -20px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+  }
+  #bookDeleteButton:hover {
+    opacity: 1;
+  }
+  #bookDeleteButton:before, #bookDeleteButton:after {
+    position: absolute;
+
+    content: ' ';
+    height: 22px;
+    width: 2px;
+    background-color: white;
+  }
+  #bookDeleteButton:before {
+    transform: rotate(45deg);
+  }
+  #bookDeleteButton:after {
     transform: rotate(-45deg);
   }
 
