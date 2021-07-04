@@ -37,26 +37,32 @@ function displayBooks(library) {
      
         let bookAuthor = document.createElement('span');
         bookAuthor.textContent = "By: " + book.author;
-        bookTitle.classList.add('bookAuthor');
+        bookAuthor.classList.add('bookAuthor');
         bookElem.appendChild(bookAuthor);
      
         let bookPages = document.createElement('span');
         bookPages.textContent = "Pages: " + book.pages;
-        bookTitle.classList.add('bookPages');
+        bookPages.classList.add('bookPages');
         bookElem.appendChild(bookPages);
      
         let bookDate = document.createElement('span');
         bookDate.textContent = "Published: " + book.date;
-        bookTitle.classList.add('bookDate');
+        bookDate.classList.add('bookDate');
         bookElem.appendChild(bookDate);
      
         let bookRating = document.createElement('span');
         bookRating.textContent = "Rating: " + book.rating;
-        bookTitle.classList.add('bookRating');
+        bookRating.classList.add('bookRating');
         bookElem.appendChild(bookRating);
 
         libraryContainer.appendChild(bookElem);
     });
+}
+
+function removeForm() {
+    formContainer.remove();
+    blurBackground.remove();
+    blackBackground.remove();
 }
 
 
@@ -75,6 +81,13 @@ function renderNewBookForm() {
     let formContainer = document.createElement('div');
     formContainer.id = "formContainer";
     document.body.appendChild(formContainer);
+
+    let formExitButton = document.createElement('div');
+    formExitButton.id = "formExitButton";
+    formExitButton.addEventListener('click', ()=> {
+        removeForm();
+    });
+    formContainer.appendChild(formExitButton);
 
     let formTitle = document.createElement('div');
     formTitle.id = "formTitle";
@@ -106,7 +119,7 @@ function renderNewBookForm() {
         displayBooks(myLibrary);
 
         //Delete form 
-        formContainer.remove();
+        removeForm();
     });
     buttonContainer.appendChild(addButton);
 
@@ -119,11 +132,6 @@ function renderNewBookForm() {
         });
     });
     buttonContainer.appendChild(clearFieldsButton);
-    
-    
-
-    
-
 }
 
 function createFormItem(title, subtitle) {
