@@ -168,15 +168,29 @@ function renderNewBookForm() {
     let addButton = document.createElement('button');
     addButton.textContent = "Add Book";
     addButton.addEventListener('click', ()=> {
-      
-        let isReadStatus = document.querySelector('.dropdown').firstChild.value === "I have already read this book."? true: false;
-        console.log(" Rawe " + isReadStatus);
-        let book = new Book(formItemInputs[0].value, formItemInputs[1].value, formItemInputs[2].value, formItemInputs[3].value,isReadStatus,formItemInputs[4].value);
-        addBookToLibraryLite(book);
-        displayBooks(myLibrary);
 
-        //Delete form 
-        removeForm();
+        let emptyFlag = false;
+        formItemInputs.forEach((item)=> {
+            if(item.value === "") {
+                emptyFlag = true;
+                console.log("flag");
+                }
+        });
+      
+        if(!emptyFlag) {
+            let isReadStatus = document.querySelector('.dropdown').firstChild.value === "I have already read this book."? true: false;
+            console.log(" Rawe " + isReadStatus);
+            let book = new Book(formItemInputs[0].value, formItemInputs[1].value, formItemInputs[2].value, formItemInputs[3].value,isReadStatus,formItemInputs[4].value);
+            addBookToLibraryLite(book);
+            displayBooks(myLibrary);
+    
+            //Delete form 
+            removeForm();
+        } else {
+            window.alert("Please fill every input. :)");
+            emptyFlag = false;
+        }
+        
     });
     buttonContainer.appendChild(addButton);
 
