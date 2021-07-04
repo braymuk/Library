@@ -66,6 +66,34 @@ function displayBooks(library) {
         bookRating.classList.add('bookRating');
         bookElem.appendChild(bookRating);
 
+        let isReadToggle = document.createElement('label');
+        isReadToggle.id = "isReadToggle";
+        isReadToggle.classList.add('switch');
+        
+
+        let checkBox = document.createElement('input');
+        checkBox.type = "checkbox";
+        checkBox.addEventListener('click', ()=> {
+            let switchStatus = checkBox.checked;
+            console.log(checkBox.value);
+            if(checkBox.value === "on") {
+                bookElem.classList.add('bookRead');
+                checkBox.value = "off";
+            } else {
+                bookElem.classList.remove('bookRead');
+                checkBox.value = "on";
+            }
+           
+        });
+        isReadToggle.appendChild(checkBox);
+
+        let sliderRound = document.createElement('span');
+        sliderRound.classList.add('slider');
+        sliderRound.classList.add('round');
+        isReadToggle.appendChild(sliderRound);
+
+        bookElem.appendChild(isReadToggle);
+
         libraryContainer.appendChild(bookElem);
     });
 }
