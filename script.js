@@ -31,11 +31,17 @@ function displayBooks(library) {
         bookElem.dataset.id = index;
         bookElem.classList.add('book');
 
+        let bookId = bookElem.dataset.id;
+
+        
+
+      
+
         let bookDeleteButton = document.createElement('div');
         bookDeleteButton.id = "bookDeleteButton";
         bookDeleteButton.classList.add('exitButton');
         bookDeleteButton.addEventListener('click', ()=> {
-            let bookId = bookElem.dataset.id;
+            
             myLibrary.splice(bookId, 1);
             bookElem.remove();
         });
@@ -78,14 +84,24 @@ function displayBooks(library) {
             console.log(checkBox.value);
             if(checkBox.value === "on") {
                 bookElem.classList.add('bookRead');
+                myLibrary[bookId].isRead = true;
                 checkBox.value = "off";
+                checkBox.checked = true;
+                
             } else {
                 bookElem.classList.remove('bookRead');
+                myLibrary[bookId].isRead = false;
                 checkBox.value = "on";
+                checkBox.checked = false;
             }
-           
         });
         isReadToggle.appendChild(checkBox);
+
+        if(myLibrary[bookId].isRead === true) {
+            bookElem.classList.add('bookRead');
+            checkBox.value = "off";
+            checkBox.checked = true;
+        }
 
         let sliderRound = document.createElement('span');
         sliderRound.classList.add('slider');
@@ -102,11 +118,6 @@ function removeForm() {
     formContainer.remove();
     blurBackground.remove();
     blackBackground.remove();
-}
-
-
-function removeBook() {
-
 }
 
 
@@ -157,8 +168,10 @@ function renderNewBookForm() {
     let addButton = document.createElement('button');
     addButton.textContent = "Add Book";
     addButton.addEventListener('click', ()=> {
-        console.log(formItemInputs[0]);
-        let book = new Book(formItemInputs[0].value, formItemInputs[1].value, formItemInputs[2].value, formItemInputs[3].value,formItemInputs[4].value);
+      
+        let isReadStatus = document.querySelector('.dropdown').firstChild.value === "I have already read this book."? true: false;
+        console.log(" Rawe " + isReadStatus);
+        let book = new Book(formItemInputs[0].value, formItemInputs[1].value, formItemInputs[2].value, formItemInputs[3].value,isReadStatus,formItemInputs[4].value);
         addBookToLibraryLite(book);
         displayBooks(myLibrary);
 
