@@ -275,15 +275,16 @@ addBookButton.addEventListener('click',(e)=> {
 });
 
 
-const book1 = new Book("Star Wars", "George Lucas", "123", "1996", false, 3);
-const book2 = new Book("Letters from a Stoic", "Seneca", "156", "1200", false, 3);
-const book3 = new Book("Meditations", "Marcus Aurelius", "120", "1240", false, 3);
+const exampleBook1 = new Book("Letters from a Stoic", "Seneca", "254", "65 AD", true, 5);
+const exampleBook2 = new Book("Atomic Habits", "James Clear", "306", "2018", true, 4);
+const exampleBook3 = new Book("Deep Work", "Cal Newport", "256", "2016", false, 5);
 
 
 
-addBookToLibraryLite(book1);
-addBookToLibraryLite(book2);
-addBookToLibraryLite(book3);
+
+addBookToLibraryLite(exampleBook1);
+addBookToLibraryLite(exampleBook2);
+addBookToLibraryLite(exampleBook3);
 
 displayBooks(myLibrary);
 
